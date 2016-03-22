@@ -6,7 +6,7 @@ import sys, json, pandas
 def main(argv):
     elections = pandas.read_csv('election_results.csv')
     map_file = open('map.json', 'rb')
-    map = json.load(map_file)
+    map_data = json.load(map_file)
     parties = {
         '50PLUS': True,
         'Christen Democratisch Appèl (CDA)': True,
@@ -20,7 +20,7 @@ def main(argv):
         'Staatkundig Gereformeerde Partij (SGP)': False,
         'VVD': True
     }
-    for gem in map['objects']['gem']['geometries']:
+    for gem in map_data['objects']['gem']['geometries']:
         if not gem['properties']['GM_NAAM']: continue
         print 'parsing district: '+gem['properties']['GM_NAAM']
         c = float(gem['properties']['GM_CODE'].lstrip('GM'))
@@ -35,9 +35,7 @@ def main(argv):
                 count = count + votes if parties[party] else count - votes
             gem['properties']['in_favor'] = True if count >= 0 else False
     with open('_map.json', 'w') as outfile:
-        json.dump(map, outfile)
-
-
+        json.dump(map_data, outfile)
 
 if __name__ == "__main__":
     main(sys.argv[1:])

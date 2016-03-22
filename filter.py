@@ -113,7 +113,7 @@ def getWordCounts(tweets, noise, length):
     print '                            ... might take a while .......'
 
     df = pd.DataFrame(columns=['text', 'size'])
-    df['text'] = [re.sub(r'\W+', '', word) for tweet in tweets['text'].str.split() for word in tweet if allowed(word, noise)]
+    df['text'] = [re.sub(r'\W+$', '', word) for tweet in tweets['text'].str.split() for word in tweet if allowed(word, noise)]
     df['text'] = df['text'].str.lower()
     df['size'] = df.groupby('text')['text'].transform('count')
     df = df.dropna().drop_duplicates()

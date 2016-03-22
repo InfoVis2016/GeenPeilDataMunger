@@ -28,7 +28,7 @@ def main(argv):
             if not election[1] == c: continue
             print 'found matching district: '+election[2]+'\n'
             for i, col in enumerate(elections.columns):
-                gem['properties'][col] = election[i]
+                gem['properties'][col] = election[i] if election[i] else 0
             count = 0
             for party in parties:
                 votes = gem['properties'][party]

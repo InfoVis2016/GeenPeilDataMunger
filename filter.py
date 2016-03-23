@@ -80,6 +80,9 @@ def parseInput(tweetsfile, noisefile):
 ## Filter function used to filter out noise from tweet data
 def allowed(value, noise):
 
+    if not isinstance('a', basestring):
+        return False
+
     value = value.lower()
 
     if value.isdigit():
